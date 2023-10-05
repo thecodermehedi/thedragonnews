@@ -1,17 +1,33 @@
+import PropTypes from "prop-types";
 import {BsBookmark, BsShare, BsFillEyeFill} from "react-icons/bs";
-const NewsCard = () => {
+import {Link} from "react-router-dom";
+
+const NewsCard = ({card}) => {
+  console.log(card);
+  const {
+    author: {img, name, published_date},
+    title,
+    image_url,
+    details,
+    rating: {number},
+    total_view,
+  } = card;
   return (
     <div className="border w-full rounded-xl">
       <header className="bg-black bg-opacity-5 flex justify-between items-center p-4">
         <div className="flex items-center gap-4">
           <div className="avatar">
             <div className="w-10 rounded-full">
-              <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80" />
+              <img src={img} />
             </div>
           </div>
           <div>
-            <h1 className="text-gray-900 font-semibold">Jimmy Dane</h1>
-            <p className="text-gray-700">2022-08-24</p>
+            <h1 className="text-gray-900 font-semibold">{name}</h1>
+            <p className="text-gray-700">
+              {published_date && published_date.length > 9
+                ? published_date.slice(0, 10)
+                : published_date}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-4 text-gray-700">
@@ -20,23 +36,21 @@ const NewsCard = () => {
         </div>
       </header>
       <main>
-        <h1 className="font-semibold text-3xl text-gray-900 p-5">
-          Biden Pledges Nearly $3 Billion To Ukraine In Largest U.S. Military
-          Aid Package Yet
-        </h1>
+        <h1 className="font-semibold text-3xl text-gray-900 p-5">{title}</h1>
         <figure className="rounded-xl">
-          <img
-            className="rounded-xl px-5"
-            src="https://i.ibb.co/M23fhxm/unsplash-Eh-Tc-C9s-YXsw.png"
-          />
+          <img className="rounded-xl px-5" src={image_url} />
         </figure>
         <figcaption className="p-5">
-          Wednesday, August 24, 2022 | Tag Cloud Tags: Biden, EU, Euro, Europe,
-          Joe Biden, Military, News, Russia, Security, UK, Ukraine, United
-          States, Worthy News (Worthy News) – U.S. President Joe Biden has
-          announced nearly $3 billion in new U.S. military aid for Kyiv as
-          Ukraine marked its independence day six months after Russia invaded
-          the country... <span className="text-orange-400">Read More</span>
+          {details && details.length > 250 ? (
+            <>
+              {details.slice(0, 253) + "..."}
+              <Link to={`/news/${card._id}`} className="text-orange-400 font-semibold text-lg">
+                Read More
+              </Link>
+            </>
+          ) : (
+            details
+          )}
         </figcaption>
         <hr className="mx-5 border-2" />
         <div className="flex justify-between items-center p-5 text-lg">
@@ -66,19 +80,22 @@ const NewsCard = () => {
                 type="radio"
                 name="rating-2"
                 className="mask mask-star-2 bg-orange-400"
-                checked
               />
             </div>
-            <p className="text-gray-700">4.9</p>
+            <p className="text-gray-700">{number}</p>
           </div>
           <div className="flex items-center gap-2">
             <BsFillEyeFill />
-            <span>499</span>
+            <span>{total_view}</span>
           </div>
         </div>
       </main>
     </div>
   );
+};
+
+NewsCard.propTypes = {
+  card: PropTypes.object,
 };
 
 export default NewsCard;

@@ -10,6 +10,7 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => setNewsCards(data));
   }, []);
+
   return (
     <section className="bg-white">
       <Home_Header />

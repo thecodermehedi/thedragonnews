@@ -3,7 +3,6 @@ import {BsBookmark, BsShare, BsFillEyeFill} from "react-icons/bs";
 import {Link} from "react-router-dom";
 
 const NewsCard = ({card}) => {
-  console.log(card);
   const {
     author: {img, name, published_date},
     title,
@@ -44,7 +43,10 @@ const NewsCard = ({card}) => {
           {details && details.length > 250 ? (
             <>
               {details.slice(0, 253) + "..."}
-              <Link to={`/news/${card._id}`} className="text-orange-400 font-semibold text-lg">
+              <Link
+                to={`/news/${card._id}`}
+                className="text-orange-400 font-semibold text-lg"
+              >
                 Read More
               </Link>
             </>

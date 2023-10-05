@@ -1,6 +1,20 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import avatarPlaceholder from "../../assets/images/user.png";
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthProvider";
 const Navbar = () => {
+  const {user, signOutUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    signOutUser()
+      .then(() => {
+        console.log("user signed out");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const navLinks = (
     <>
       <Link to={"/"} className="hover:text-black text-gray-600">
@@ -49,12 +63,24 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="w-10 rounded-full mr-2 cursor-pointer">
-            <img src={avatarPlaceholder} />
+          <div className="w-10 rounded-full mr-5 border overflow-hidden">
+            <img src={user?.photoURL ? user.photoURL : avatarPlaceholder} />
           </div>
-          <a className="btn bg-gray-700 hover:bg-gray-900 border-none rounded-xl min-h-0 h-10 px-8 text-white font-semibold text-lg">
-            Login
-          </a>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="btn bg-gray-700 hover:bg-gray-900 border-none rounded-xl min-h-0 h-10 px-8 text-white font-semibold text-lg"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to={"/login"}
+              className="btn bg-gray-700 hover:bg-gray-900 border-none rounded-xl min-h-0 h-10 px-8 text-white font-semibold text-lg"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

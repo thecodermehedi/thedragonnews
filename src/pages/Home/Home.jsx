@@ -1,9 +1,9 @@
 import LeftSideBar from "../../components/LeftSideBar/LeftSideBar";
-import RightSideBar from "./../../components/RightSideBar/RightSideBar";
+import RightSideBar from "../../components/RightSideBar/RightSideBar";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import {useEffect, useState} from "react";
 import Home_Header from "./Home_Header";
-const Homepage = () => {
+const Home = () => {
   const [newsCards, setNewsCards] = useState([]);
   useEffect(() => {
     fetch("./data/news.json")
@@ -31,4 +31,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Home;

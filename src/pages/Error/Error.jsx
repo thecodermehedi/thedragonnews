@@ -1,12 +1,12 @@
 import {useRouteError} from "react-router-dom";
-const Errorpage = () => {
+const Error = () => {
   const error = useRouteError();
   console.error(error);
 
   return (
     <>
       {error.status === 404 ? (
-        <div className="h-screen bg-gay-900 text-slate-300 flex flex-col justify-center items-center relative font-montserrat">
+        <div className="h-screen bg-white text-black flex flex-col justify-center items-center relative font-montserrat">
           <h1 className="font-bold uppercase text-sm absolute top-64">
             Oops! page not found
           </h1>
@@ -24,4 +24,4 @@ const Errorpage = () => {
   );
 };
 
-export default Errorpage;
+export default Error;

@@ -1,10 +1,12 @@
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useParams} from "react-router-dom";
 import Header from "../../components/Header/Header";
 import RightSideBar from "../../components/RightSideBar/RightSideBar";
+import NewsDetailsCard from "../../components/NewsDetailsCard/NewsDetailsCard";
 
 const NewsDetails = () => {
+  const {id} = useParams();
   const newsData = useLoaderData();
-  console.log(newsData);
+  const newsDetails = newsData.find((card) => card._id === id);
   return (
     <section className="bg-white">
       <Header />
@@ -14,7 +16,7 @@ const NewsDetails = () => {
             Dragon News
           </h1>
           <div className="flex flex-col justify-center items-center gap-5">
-            {newsData.length}
+            {newsDetails && <NewsDetailsCard card={newsDetails} />}
           </div>
         </div>
         <RightSideBar />

@@ -5,25 +5,65 @@ import {
   FaInstagram,
   FaXTwitter,
 } from "react-icons/fa6";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import qZone1 from "../../assets/images/qZone1.png";
 import qZone2 from "../../assets/images/qZone2.png";
 import qZone3 from "../../assets/images/qZone3.png";
 import bg1 from "../../assets/images/bg1.png";
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthProvider";
 const RightSideBar = () => {
+  const {user, signInWithGoogle, signInWithGithub} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogInWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        console.log("logged in successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+  const handleLogInWithGithub = () => {
+    signInWithGithub()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        console.log("logged in successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
   return (
     <section className="h-fit">
-      <div className="mb-5">
-        <h1 className="font-semibold text-xl text-gray-900 mt-2 mb-5">
-          Login With
-        </h1>
-        <button className="btn min-h-0 h-10 w-full border rounded-xl bg-transparent normal-case mb-2 border-blue-500 text-blue-500">
-          <FaGoogle /> Login with Google
-        </button>
-        <button className="btn min-h-0 h-10 w-full border rounded-xl bg-transparent normal-case mb-5 border-black text-black hover:text-white">
-          <FaGithub /> Login with Github
-        </button>
-      </div>
+      {!user && (
+        <>
+          <div className="mb-5">
+            <h1 className="font-semibold text-xl text-gray-900 mt-2 mb-5">
+              Login With
+            </h1>
+            <button
+              onClick={handleLogInWithGoogle}
+              className="btn min-h-0 h-10 w-full border rounded-xl bg-transparent normal-case mb-2 border-blue-500 text-blue-500"
+            >
+              <FaGoogle /> Login with Google
+            </button>
+            <button
+              onClick={handleLogInWithGithub}
+              className="btn min-h-0 h-10 w-full border rounded-xl bg-transparent normal-case mb-5 border-black text-black hover:text-white"
+            >
+              <FaGithub /> Login with Github
+            </button>
+          </div>
+        </>
+      )}
       <div className="mb-5">
         <h1 className="font-semibold text-xl text-gray-900 mt-2 mb-5">
           Find Us On

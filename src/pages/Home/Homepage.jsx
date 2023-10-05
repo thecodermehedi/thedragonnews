@@ -1,13 +1,25 @@
+import LeftSideBar from "../../components/LeftSideBar/LeftSideBar";
+import RightSideBar from "./../../components/RightSideBar/RightSideBar";
+import Header from "./../../components/Header/Header";
+import NewsCard from "../../components/NewsCard/NewsCard";
+
 const Homepage = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-[38.9rem] bg-gray-900 text-gray-300">
-      <img
-        className="w-56 hover:animation-spin hover:rotate-180 transition-all duration-1000 cursor-pointer"
-        src="./react.svg"
-        alt="react-icon"
-      />
-      <h1 className="my-5 text-5xl font-bold">The Dragon News</h1>
-    </div>
+    <section className="bg-white">
+      <Header />
+      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+        <LeftSideBar />
+        <div className="col-span-2">
+          <h1 className="font-semibold text-xl text-gray-900 mt-2 mb-5">
+            Dragon News
+          </h1>
+          <div className="flex flex-col justify-center items-center gap-5">
+              <NewsCard />
+          </div>
+        </div>
+        <RightSideBar />
+      </div>
+    </section>
   );
 };
 
